@@ -1,6 +1,6 @@
 {
   "id": "universal-reader",
-  "name": "Universal Reader & File Viewer",
+  "name": "Universal Reader and File Viewer",
   "version": "0.8.0",
   "minAppVersion": "1.5.0",
   "description": "Open 1000+ file formats in your vault: EPUB, FB2, MOBI, DjVu, CBZ/CBR comics, DOCX, XLSX, PPTX, RTF, ODT, SQLite, ZIP/RAR/7z archives, EML/MSG email, STL/OBJ 3D models, fonts, GPX/KML maps and code. Read-only, offline.",

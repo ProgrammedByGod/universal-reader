@@ -1,4 +1,4 @@
-# Universal Reader & File Viewer
+# Universal Reader and File Viewer
 
 *[Русская версия](README.ru.md)*
 
@@ -19,7 +19,7 @@ A read-only reader and file viewer for Obsidian that opens **more than 1000 file
 1. Open the **[latest release](https://github.com/ProgrammedByGod/universal-reader/releases/latest)**.
 2. Scroll down to the **Assets** section and click **`universal-reader-x.y.z.zip`** (the full version).
 3. Unpack it into `<your vault>/.obsidian/plugins/`. To find this folder, open Obsidian → Settings → Community plugins → click the 📁 folder icon next to "Installed plugins".
-4. Restart Obsidian and turn on **Universal Reader & File Viewer** in Settings → Community plugins.
+4. Restart Obsidian and turn on **Universal Reader and File Viewer** in Settings → Community plugins.
 
 > **Alpha.** The plugin never changes your files, but please back up your vault or try it on a test vault first.
 
