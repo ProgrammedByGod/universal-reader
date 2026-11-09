@@ -1,4 +1,4 @@
-# Universal Reader
+# Universal Reader & File Viewer
 
 *[Русская версия](README.ru.md)*
 
@@ -8,7 +8,7 @@
   <a href="https://boosty.to/programmedbygod"><img src="https://img.shields.io/badge/❤_Support_on-Boosty-f15f2c?style=for-the-badge" alt="Support on Boosty"></a>
 </p>
 
-A read-only viewer for Obsidian that opens **more than 1000 file extensions** right inside the vault: books, comics, documents, spreadsheets, databases, presentations, web pages, email, notes, diagrams, maps, 3D models, fonts, archives, code and much more.
+A read-only reader and file viewer for Obsidian that opens **more than 1000 file extensions** right inside the vault: books, comics, documents, spreadsheets, databases, presentations, web pages, email, notes, diagrams, maps, 3D models, fonts, archives, code and much more.
 
 > ❤️ **Universal Reader is free and made by one person.** If it saves you time, please support its development on **[Boosty](https://boosty.to/programmedbygod)** — even a small donation helps keep the plugin growing.
 
@@ -19,7 +19,7 @@ A read-only viewer for Obsidian that opens **more than 1000 file extensions** ri
 1. Open the **[latest release](https://github.com/ProgrammedByGod/universal-reader/releases/latest)**.
 2. Scroll down to the **Assets** section and click **`universal-reader-x.y.z.zip`** (the full version).
 3. Unpack it into `<your vault>/.obsidian/plugins/`. To find this folder, open Obsidian → Settings → Community plugins → click the 📁 folder icon next to "Installed plugins".
-4. Restart Obsidian and turn on **Universal Reader** in Settings → Community plugins.
+4. Restart Obsidian and turn on **Universal Reader & File Viewer** in Settings → Community plugins.
 
 > **Alpha.** The plugin never changes your files, but please back up your vault or try it on a test vault first.
 
@@ -55,7 +55,7 @@ PDF is still opened by Obsidian's own viewer. KeePass databases are shown as inf
 ## Installation
 
 ### From the Obsidian catalog
-Settings → Community plugins → Browse → search for **Universal Reader** → Install → Enable.
+Settings → Community plugins → Browse → search for **Universal Reader** (or just a format, e.g. *epub*, *docx*, *djvu*) → Install → Enable.
 
 The catalog version already includes the popular formats: Word, Excel, PowerPoint, TIFF, DjVu, RAR, SQLite and 3D models.
 

@@ -125,13 +125,13 @@ rhino3dm (MIT), web-ifc (MPL-2.0), Ruffle (MIT / Apache-2.0). Устройств
 0.1.2 — сноски входят в нумерацию, до них можно долистать.
 0.1.1 — настоящие номера страниц без перескоков.
 `
-const textEn = `Universal Reader for Obsidian — alpha ${version} (read-only)
+const textEn = `Universal Reader & File Viewer for Obsidian — alpha ${version} (read-only)
 
 INSTALL / UPDATE
 1. Back up your vault (or test on a separate vault).
 2. Copy the universal-reader folder in full (including the libs folder) into
    <your vault>/.obsidian/plugins/  (when updating, replace its contents).
-3. Restart Obsidian: Settings → Community plugins → "Universal Reader".
+3. Restart Obsidian: Settings → Community plugins → "Universal Reader & File Viewer".
 
 If the plugin was installed from the Obsidian catalog, it has no libs folder. Popular formats (Word,
 Excel, PowerPoint, TIFF, DjVu, RAR, SQLite, 3D models) are built in and work anyway. For rare heavy
