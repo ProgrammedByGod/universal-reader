@@ -1,0 +1,12 @@
+const { chromium } = require('playwright')
+;(async () => {
+  const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1220, height: 820 } })
+  p.on('console', m => console.log('C', m.text().slice(0,200)))
+  await p.goto('http://localhost:8765/index.html'); await p.evaluate(() => window.ready)
+  await p.evaluate(() => openFile('nested.zip'))
+  await p.waitForTimeout(1000)
+  console.log(await p.evaluate(() => document.querySelector('.ur-archive').innerHTML.slice(0, 800)))
+  await p.locator('.ur-archive >> text=test.epub').first().click(); await p.waitForTimeout(1500)
+  console.log(await p.evaluate(() => document.querySelector('.ur-archive').innerHTML.slice(0, 800)))
+  await b.close()
+})()

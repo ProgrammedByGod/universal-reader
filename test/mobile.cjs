@@ -1,0 +1,10 @@
+const { chromium } = require('playwright')
+;(async () => {
+  const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 400, height: 800 } })
+  await p.addInitScript(() => { window.__mobile = true })
+  await p.goto('http://localhost:8765/index.html'); await p.evaluate(() => window.ready)
+  console.log('mobile exts:', await p.evaluate(() => [...plugin.exts].length), 'djvu?', await p.evaluate(() => plugin.exts.has('djvu')))
+  await p.evaluate(() => openFile('test.epub')); await p.waitForTimeout(1200)
+  await p.screenshot({ path: 'shots/m-epub.png' })
+  await b.close()
+})()

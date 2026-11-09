@@ -1,0 +1,10 @@
+const { chromium } = require('playwright')
+;(async () => {
+  const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1220, height: 820 } })
+  await p.goto('http://localhost:8765/index.html'); await p.evaluate(() => window.ready)
+  await p.evaluate(() => openFile('test.eml')); await p.waitForTimeout(800)
+  console.log(await p.evaluate(async () => { view.openSearch(); await view.runSearch('уникальноеслово'); view.searchResults.querySelector('.ur-search-hit')?.click(); return view.searchInfo.textContent }))
+  await p.waitForTimeout(300); await p.screenshot({ path: 'shots/n-eml2.png' })
+  await p.evaluate(() => openFile('test.fountain')); await p.waitForTimeout(800); await p.evaluate(() => view.renderer.next()); await p.waitForTimeout(500); await p.screenshot({ path: 'shots/n-fountain2.png' })
+  await b.close()
+})()

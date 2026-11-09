@@ -1,0 +1,15 @@
+const { chromium } = require('playwright')
+;(async () => {
+  const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1220, height: 820 } })
+  const errs = []; p.on('pageerror', e => errs.push(e.message)); p.on('console', m => { if (m.type()==='warning' && !m.text().includes('sandbox')) errs.push(m.text()) })
+  await p.goto('http://localhost:8765/index.html'); await p.evaluate(() => window.ready)
+  await p.evaluate(() => localStorage.clear())
+  console.log(await p.evaluate(() => openFile('user.fb2')))
+  await p.waitForTimeout(1000)
+  console.log(await p.evaluate(() => view.renderer.debugPages))
+  for (let i = 0; i < 60; i++) { const d = await p.evaluate(() => view.renderer.debugPages); if (!d.measuring) break; await p.waitForTimeout(500) }
+  console.log(await p.evaluate(() => view.renderer.debugPages))
+  console.log(await p.evaluate(() => ({ toc: view.renderer.book.toc.length, sizes: view.renderer.book.sections.map(s => s.size) })))
+  console.log('errors', errs.slice(0, 5))
+  await b.close()
+})()

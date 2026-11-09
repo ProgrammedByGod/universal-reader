@@ -1,0 +1,64 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="dist/styles.css">
+<style>
+.setting-item { display:flex; gap:12px; padding:8px 0; border-top:1px solid #eee; align-items:center } .setting-item-info { flex:1 } .setting-item-name { font-weight:500 } .setting-item-description { color:#666; font-size:13px } .checkbox-container input { transform: scale(1.3) }
+
+body { margin:0; font-family: sans-serif; --background-primary:#fff; --background-secondary:#f3f3f3; --text-normal:#222; --text-muted:#666; --text-faint:#999; --text-accent:#6a4fd0; --interactive-accent:#6a4fd0; --text-on-accent:#fff; --background-modifier-border:#ddd; --background-modifier-hover:#eee; --text-highlight-bg:#ff06; --font-ui-small:13px; --font-ui-smaller:12px; --font-text-size:16px; --font-monospace:monospace; --code-background:#f5f5f5; --text-error:#c00; }
+body.theme-dark { --background-primary:#1e1e1e; --background-secondary:#262626; --text-normal:#ddd; --text-muted:#aaa; --background-modifier-border:#444; --background-modifier-hover:#333; }
+.modal-container .modal { width: 1100px; } .modal-container .modal-content { height: 600px; } #host { width: 1200px; height: 800px; border:1px solid #ccc; }
+#host .workspace-leaf-content, #host .view-content { height:100%; }
+button { cursor:pointer }
+</style></head><body>
+<div id="host"></div>
+<script>
+const module = { exports: {} }
+</script>
+<script src="dist/main.js"></script>
+<script>
+const Plugin = module.exports.default
+const enc = n => n.split('/').map(encodeURIComponent).join('/')
+const store = {}
+const app = {
+  vault: {
+    readBinary: async f => (await fetch('samples/' + enc(f.name))).arrayBuffer(),
+    cachedRead: async f => (await fetch('samples/' + enc(f.name))).text(),
+    getResourcePath: f => 'samples/' + enc(f.name),
+    getAbstractFileByPath: () => null,
+    createBinary: async (p, d) => { window.created = [p, d.byteLength]; return { path: p } },
+    createFolder: async () => {},
+    on: () => ({}),
+    adapter: {
+      getResourcePath: p => 'dist/libs/' + p.split('/libs/')[1],
+      readBinary: async p => { if (p.includes('/libs/')) { const r = await fetch('dist/libs/' + p.split('/libs/')[1]); if (!r.ok) throw new Error('nf'); return r.arrayBuffer() } const r = await fetch('samples/' + enc(p.replace(/^books\//, ''))); if (!r.ok) throw new Error('nf'); return r.arrayBuffer() },
+      read: async p => { if (p.startsWith('books/')) { const r = await fetch('samples/' + enc(p.slice(6))); if (!r.ok) throw new Error('nf'); return r.text() } if (p.includes('/libs/')) { const r = await fetch('dist/libs/' + p.split('/libs/')[1]); if (!r.ok) throw new Error('nf'); return r.text() } if (store[p]) return store[p]; throw new Error('nf') },
+      exists: async p => { if (p.startsWith('books/')) return (await fetch('samples/' + enc(p.slice(6)), { method: 'HEAD' })).ok; return !!store[p] }, write: async (p, d) => { store[p] = d }, mkdir: async () => {},
+    },
+  },
+  workspace: { onLayoutReady: f => setTimeout(f, 700), on: () => ({}), getLeaf: () => ({ openFile: async f => { window.opened = f } }), getActiveFile: () => null, getLeavesOfType: () => [] },
+  viewRegistry: { typeByExtension: { svg: 'image', png: 'image', md: 'markdown', pdf: 'pdf' },
+    unregisterExtensions(exts) { for (const e of exts) delete this.typeByExtension[e] },
+    registerExtensions(exts, t) { for (const e of exts) this.typeByExtension[e] = t } },
+}
+window.errors = []
+window.addEventListener('error', e => window.errors.push(String(e.message)))
+window.addEventListener('unhandledrejection', e => window.errors.push(String(e.reason?.stack || e.reason)))
+const plugin = new Plugin(app, { dir: '.obsidian/plugins/universal-reader', id: 'universal-reader' })
+window.ready = plugin.onload().then(() => new Promise(r => setTimeout(r, 800))) // форматы регистрируются после onLayoutReady
+window.view = null
+window.openSettings = () => { const host = document.getElementById('host'); host.innerHTML = ''; host.style.overflow = 'auto'; const t = plugin.settingTab; host.append(t.containerEl); t.display(); return t.containerEl.querySelectorAll('.setting-item').length }
+window.openFile = async (name, opts = {}) => {
+  if (window.view) { await window.view.onUnloadFile(window.view.file); }
+  document.getElementById('host').innerHTML = ''
+  const view = plugin.views['universal-reader-view']({ app })
+  document.getElementById('host').append(view.containerEl)
+  const ext = name.endsWith('.fb2.zip') ? 'zip' : name.split('.').pop().toLowerCase()
+  const base = name.split('/').pop()
+  const file = { name, path: 'books/' + name, basename: base.replace(/\.[^.]+$/, ''), extension: ext, parent: { path: ('books/' + name).split('/').slice(0, -1).join('/'), children: (window.SIBLINGS?.[name] ?? []).map(n => ({ name: n, basename: n.split('/').pop().replace(/\.[^.]+$/, ''), extension: n.split('.').pop().toLowerCase(), path: 'books/' + n })) } }
+  view.file = file
+  view.asBook = !!opts.asBook
+  view.asHex = !!opts.asHex
+  window.view = view
+  await view.onLoadFile(file)
+  return view.contentEl.querySelector('.ur-message.is-error')?.textContent || 'ok'
+}
+</script></body></html>
