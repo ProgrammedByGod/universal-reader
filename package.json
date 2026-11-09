@@ -6,7 +6,7 @@
     "build": "node build.mjs dist",
     "build:test": "node build.mjs dist-test --test"
   },
-  "author": "Миша (ProgrammedByGod)",
+  "author": "ProgrammedByGod",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
     "acorn": "^8.19.0",
@@ -70,5 +70,6 @@
     "xlsx": "^0.18.5",
     "xz-decompress": "^0.2.3"
   },
-  "repository": "github:ProgrammedByGod/universal-reader"
+  "repository": "github:ProgrammedByGod/universal-reader",
+  "funding": "https://boosty.to/programmedbygod"
 }

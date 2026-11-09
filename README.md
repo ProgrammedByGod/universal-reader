@@ -54,6 +54,10 @@ The settings tab shows whether the pack is installed and whether it is up to dat
 ### Manual install (full version)
 Download `universal-reader-x.y.z.zip` from [Releases](https://github.com/ProgrammedByGod/universal-reader/releases/latest). Unpack it into `<your vault>/.obsidian/plugins/`, then enable the plugin in Settings → Community plugins.
 
+## Support
+
+If you find the plugin useful, you can support its development on **[Boosty](https://boosty.to/programmedbygod)** ❤️
+
 ## Privacy and network use
 
 The plugin works fully offline:
