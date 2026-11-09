@@ -12,6 +12,8 @@ A read-only viewer for Obsidian that opens **more than 1000 file extensions** ri
 
 > ❤️ **Universal Reader is free and made by one person.** If it saves you time, please support its development on **[Boosty](https://boosty.to/programmedbygod)** — even a small donation helps keep the plugin growing.
 
+> 💡 **Have an idea, found a bug, or a file that won't open?** [Open an issue](https://github.com/ProgrammedByGod/universal-reader/issues/new) — every suggestion is read. Details below in [Feedback and ideas](#feedback-and-ideas).
+
 ### ⬇️ Not familiar with GitHub? Here's how to download
 
 1. Open the **[latest release](https://github.com/ProgrammedByGod/universal-reader/releases/latest)**.
@@ -68,6 +70,17 @@ The settings tab shows whether the pack is installed and whether it is up to dat
 
 ### Manual install (full version)
 Download `universal-reader-x.y.z.zip` from [Releases](https://github.com/ProgrammedByGod/universal-reader/releases/latest). Unpack it into `<your vault>/.obsidian/plugins/`, then enable the plugin in Settings → Community plugins.
+
+## Feedback and ideas
+
+Your feedback shapes the plugin. Write in [Issues](https://github.com/ProgrammedByGod/universal-reader/issues) (English or Russian is fine) if you:
+
+- 🐞 **found a bug.** Describe what you did, what happened, and your Obsidian version and OS.
+- 📄 **have a file that doesn't open or looks wrong.** Mention the file extension and, if possible, attach a sample file. Make sure the file contains nothing private.
+- ✨ **want a new format or feature.** Say what you'd like and how you'd use it.
+- 🌍 **found a translation mistake**, or want to add a new interface language.
+
+Code contributions are welcome too. Fork the repository, make your changes and open a **pull request**. See [Building from source](#building-from-source) below.
 
 ## Support
 
