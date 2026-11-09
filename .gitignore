@@ -1,0 +1,10 @@
+node_modules/
+dist/
+dist-test/
+pkg/
+test/samples/
+test/shots/
+test/www/dist
+i18n/keys.json
+i18n/missing.txt
+*.zip
