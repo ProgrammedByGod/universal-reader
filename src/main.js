@@ -288,7 +288,7 @@ class ReaderSettingTab extends PluginSettingTab {
         p.libsStatus().then(st => {
             libs.setDesc(st.ok ? `Установлен (версия ${st.version}). Открываются все форматы.`
                 : st.installed ? 'Установлен устаревший пакет. Скачайте новый и замените им папку libs в папке плагина.'
-                : 'Не установлен. Популярные форматы (Word, Excel, PowerPoint, TIFF, DjVu, RAR, SQLite, 3D-модели) встроены и открываются и так. Пакет нужен для редких тяжёлых: 7z, HEIC, RTF, ноты, CAD, научные данные, Flash и другие. Скачайте его с GitHub и положите папку libs в папку плагина.')
+                : 'Не установлен. Популярные форматы (Word, Excel, PowerPoint, TIFF, HEIC, DjVu, RAR, SQLite, 3D-модели) встроены и открываются и так. Пакет нужен для редких тяжёлых: 7z, RTF, ноты, CAD, научные данные, Flash и другие. Скачайте его с GitHub и положите папку libs в папку плагина.')
             if (!st.ok) libs.addButton(b => b.setButtonText('Скачать с GitHub').onClick(() => window.open(LIBS_URL)))
         })
         new Setting(c).setName('Папка для данных чтения')

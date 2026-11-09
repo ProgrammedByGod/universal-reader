@@ -1,5 +1,4 @@
 // Форматы на больших библиотеках: HDF5, ноты MEI/Humdrum, STEP/IGES/BREP, Rhino 3DM, IFC, Flash SWF
-import { LibsMissingError } from '../libspack.js'
 import { escapeHtml as esc, decodeText, ReaderError } from '../util.js'
 import { unzlibSync } from 'fflate'
 import { midiView } from './graphics.js'
@@ -311,17 +310,17 @@ const swfHeader = u8 => {
     return out
 }
 let rufflePromise = null
-const loadRuffle = ctx => rufflePromise ??= new Promise((res, rej) => {
-    if (window.RufflePlayer?.newest) return res(window.RufflePlayer)
-    let base
-    try { base = ctx.assetBase('ruffle') } catch (e) { return rej(e) }
+const loadRuffle = ctx => rufflePromise ??= (async () => {
+    if (window.RufflePlayer?.newest) return window.RufflePlayer
+    const base = ctx.assetBase('ruffle')
     window.RufflePlayer = window.RufflePlayer || {}
     window.RufflePlayer.config = { ...(window.RufflePlayer.config || {}), publicPath: base, polyfills: false, autoplay: 'on', unmuteOverlay: 'hidden', splashScreen: false, allowNetworking: 'none', openUrlMode: 'deny', warnOnUnsupportedContent: false, showSwfDownload: false, logLevel: 'error' }
-    const s = document.createElement('script'); s.src = base + 'ruffle.js'
-    s.onload = () => window.RufflePlayer?.newest ? res(window.RufflePlayer) : rej(new Error('Ruffle не загрузился'))
-    s.onerror = () => rej(new LibsMissingError('ruffle/ruffle.js', false))
-    document.head.append(s)
-}).catch(e => { rufflePromise = null; throw e })
+    // код Ruffle читаем из папки libs и выполняем сами, без вставки <script> на страницу
+    const code = new TextDecoder().decode(await ctx.loadAsset('ruffle/ruffle.js'))
+    new Function(code)()
+    if (!window.RufflePlayer?.newest) throw new Error('Ruffle не загрузился')
+    return window.RufflePlayer
+})().catch(e => { rufflePromise = null; throw e })
 
 export const swfView = async (ctx, buf) => {
     const u8 = new Uint8Array(buf)

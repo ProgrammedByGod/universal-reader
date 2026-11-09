@@ -266,7 +266,7 @@ export const FORMAT_LIST = [
 
     // ---------- Картинки ----------
     F('image', ['svg', 'svgz'], 'SVG', 'Векторные картинки, в том числе сжатые (.svgz). Вид и исходный код.'),
-    F('image', ['heic', 'heif'], 'HEIC', 'Фото с iPhone.', true),
+    F('image', ['heic', 'heif'], 'HEIC', 'Фото с iPhone.'),
     F('image', ['jxl'], 'JPEG XL', 'Новый формат фотографий.', true),
     F('image', ['jfif', 'jpe'], 'JPEG (другие имена)', 'Обычные JPEG с редкими расширениями, которые Обсидиан не открывает.'),
     F('image', ['dng', 'cr2', 'cr3', 'nef', 'arw', 'orf', 'rw2', 'raf', 'pef', 'srw', 'x3f', '3fr', 'mrw', 'erf', 'kdc', 'dcr', 'mos', 'iiq', 'rwl', 'nrw', 'srf', 'sr2', 'crw'], 'RAW-фото', 'Снимки с фотоаппаратов (Canon, Nikon, Sony, Fujifilm, Olympus, Panasonic, Pentax, Samsung, Sigma, Leica, Hasselblad, Phase One и других). Показывается встроенное превью в JPEG.', true),

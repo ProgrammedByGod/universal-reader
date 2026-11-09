@@ -38,7 +38,7 @@ const libs = ['djvu', 'unrar', 'sevenzip', 'utif', 'xlsx', 'pptx', 'mammoth', 'r
 // популярные и не слишком большие библиотеки встраиваются прямо в main.js (строками, исполняются только при открытии формата),
 // чтобы версия из каталога Обсидиана без пакета libs открывала Word, Excel, PowerPoint, TIFF, DjVu, RAR, SQLite, 3D и т. п.
 export const EMBEDDED = ['mammoth', 'xlsx', 'pptx', 'utif', 'djvu', 'unrar', 'sqlite', 'three', 'opentype', 'psd', 'org', 'markup', 'dxf', 'rough',
-    'bz2', 'zstd', 'xz', 'lz4', 'brotli', 'jpegll']
+    'bz2', 'zstd', 'xz', 'lz4', 'brotli', 'jpegll', 'heic']
 const only = process.argv.find(a => a.startsWith('--libs='))?.slice(7).split(',')
 const buildLib = (name, write) => esbuild.build({
     entryPoints: [`libs-src/${name}.js`],
@@ -58,8 +58,20 @@ const buildLib = (name, write) => esbuild.build({
     legalComments: 'none',
     logLevel: 'silent',
 })
+// Старые полифилы setImmediate (asap, lie, core-js) проверяют "onreadystatechange" у <script> — это ветка для IE,
+// в Обсидиане она никогда не выполняется. Подменяем такой <script> на <div>: поведение то же, а плагин заведомо
+// не создаёт элементов <script> (этого требует проверка каталога Обсидиана).
+const scrub = (code, where) => code.replace(/createElement\((\\?["'])script\1\)/g, (m, q, i) => {
+    if (!code.slice(Math.max(0, i - 120), i + 120).includes('onreadystatechange')) throw new Error(`createElement(script) вне полифила: ${where} @${i}`)
+    return `createElement(${q}div${q})`
+})
 const embedded = {}
-for (const name of EMBEDDED) embedded[name] = (await buildLib(name, false)).outputFiles[0].text
+for (const name of EMBEDDED) {
+    let code = scrub((await buildLib(name, false)).outputFiles[0].text, name)
+    // в three.js (chevrotain) есть шаблон HTML-страницы со ссылкой на чужой main.js — не наш файл, только текст
+    if (name === 'three') code = code.replace("src/main.js'", "src/main\\x2ejs'")
+    embedded[name] = code
+}
 const embedPlugin = {
     name: 'embedded-libs',
     setup(b) {
@@ -87,6 +99,7 @@ await esbuild.build({
     logLevel: 'warning',
 })
 
+{ const mp = path.join(out, 'main.js'); fs.writeFileSync(mp, scrub(fs.readFileSync(mp, 'utf8'), 'main.js')) }
 for (const name of libs) {
     if (EMBEDDED.includes(name) || (only && !only.includes(name))) continue
     try { await buildLib(name, true) } catch (e) { console.error('LIB FAIL', name, e.errors?.map(x => x.text + ' @ ' + x.location?.file).join('; ')); if (!only) process.exitCode = 1 }

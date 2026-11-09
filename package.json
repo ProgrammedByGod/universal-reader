@@ -1,6 +1,6 @@
 {
   "name": "universal-reader",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Universal Reader — read-only viewer for 1000+ file formats in Obsidian",
   "scripts": {
     "build": "node build.mjs dist",

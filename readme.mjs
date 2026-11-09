@@ -23,8 +23,8 @@ const textRu = `Универсальная читалка для Обсидиа�
 3. Перезапустите Обсидиан: Настройки → Сторонние плагины → «Универсальная читалка».
 
 Если плагин установлен из каталога Обсидиана, в нём нет папки libs. Популярные форматы (Word, Excel,
-PowerPoint, TIFF, DjVu, RAR, SQLite, 3D-модели) встроены и работают и так. Для редких тяжёлых форматов
-(7z, HEIC, RTF, ноты, CAD, научные данные, Flash) скачайте архив universal-reader-libs со страницы
+PowerPoint, TIFF, HEIC, DjVu, RAR, SQLite, 3D-модели) встроены и работают и так. Для редких тяжёлых форматов
+(7z, RTF, ноты, CAD, научные данные, Flash) скачайте архив universal-reader-libs со страницы
 https://github.com/ProgrammedByGod/universal-reader/releases и распакуйте его в папку плагина
 <хранилище>/.obsidian/plugins/universal-reader/ — должна получиться папка libs. Плагин сам ничего не скачивает.
 
@@ -61,6 +61,9 @@ rhino3dm (MIT), web-ifc (MPL-2.0), Ruffle (MIT / Apache-2.0). Устройств
 формат SAS — по описанию из pandas (BSD-3).
 
 ИЗМЕНЕНИЯ
+0.8.1 — исправления по проверке каталога Обсидиана: Flash (Ruffle) загружается без вставки <script>
+        на страницу; из встроенных библиотек убраны старые полифилы, создававшие элементы <script>.
+        Фото с iPhone (HEIC, HEIF) открываются без пакета библиотек и теперь работают и на телефоне.
 0.8.0 — подготовка к каталогу Обсидиана. Популярные библиотеки (Word, Excel, PowerPoint, TIFF, DjVu,
         RAR, SQLite, 3D-модели и др.) встроены в main.js; остальные вынесены в отдельный пакет libs.
         Если для файла нужен пакет, а его нет, читалка показывает, где его скачать и куда положить;
@@ -134,8 +137,8 @@ INSTALL / UPDATE
 3. Restart Obsidian: Settings → Community plugins → "Universal Reader and File Viewer".
 
 If the plugin was installed from the Obsidian catalog, it has no libs folder. Popular formats (Word,
-Excel, PowerPoint, TIFF, DjVu, RAR, SQLite, 3D models) are built in and work anyway. For rare heavy
-formats (7z, HEIC, RTF, sheet music, CAD, scientific data, Flash) download universal-reader-libs from
+Excel, PowerPoint, TIFF, HEIC, DjVu, RAR, SQLite, 3D models) are built in and work anyway. For rare heavy
+formats (7z, RTF, sheet music, CAD, scientific data, Flash) download universal-reader-libs from
 https://github.com/ProgrammedByGod/universal-reader/releases and unpack it into the plugin folder
 <vault>/.obsidian/plugins/universal-reader/ so that a libs folder appears. The plugin never downloads anything itself.
 
@@ -176,6 +179,9 @@ rhino3dm (MIT), web-ifc (MPL-2.0), Ruffle (MIT / Apache-2.0). Old format layouts
 SAS format — after the description in pandas (BSD-3).
 
 CHANGES
+0.8.1 — fixes for the Obsidian catalog review: Flash (Ruffle) is loaded without inserting a <script>
+        into the page; old polyfills that created <script> elements were removed from bundled libraries.
+        iPhone photos (HEIC, HEIF) now open without the libs pack and also work on mobile.
 0.8.0 — getting ready for the Obsidian catalog. Popular libraries (Word, Excel, PowerPoint, TIFF, DjVu,
         RAR, SQLite, 3D models and more) are built into main.js; the rest moved to a separate libs pack.
         If a file needs the pack and it is missing, the reader shows where to download it and where to

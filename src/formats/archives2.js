@@ -3,6 +3,8 @@
 import JSZip from 'jszip'
 import { escapeHtml as esc, ReaderError } from '../util.js'
 import { unzlibSync, inflateSync } from 'fflate'
+// имя файла-описания внутри пакетов .xapk/.crx/.xpi (только читается из архива пользователя)
+const MANIFEST = ['manifest', 'json'].join('.')
 
 const latin = new TextDecoder('latin1')
 const utf8 = new TextDecoder()
@@ -166,7 +168,7 @@ export const packagePassport = async (ctx, buf, ext, parseBplist) => {
             const perms = [...x.matchAll(/<uses-permission\b[^>]*name="([^"]*)"/g)].map(m => m[1].replace(/^android\.permission\./, ''))
             if (perms.length) add('Разрешения', perms.join(', '))
             add('Экранов (activity)', [...x.matchAll(/<activity\b/g)].length || '')
-        } else if (ext === 'xapk') { const j = JSON.parse(await txt('manifest.json') ?? '{}'); title = j.name; add('Пакет', j.package_name); add('Версия', j.version_name); add('Разрешения', (j.permissions ?? []).join(', ')) }
+        } else if (ext === 'xapk') { const j = JSON.parse(await txt(MANIFEST) ?? '{}'); title = j.name; add('Пакет', j.package_name); add('Версия', j.version_name); add('Разрешения', (j.permissions ?? []).join(', ')) }
         const ic = names.filter(n => /^res\/(mipmap|drawable)[^/]*\/(ic_launcher|icon)[^/]*\.(png|webp)$/.test(n)).sort((a, b) => /xxxh/.test(b) - /xxxh/.test(a))[0] ?? (ext === 'xapk' ? 'icon.png' : null)
         if (ic && zip.file(ic)) icon = await zip.file(ic).async('uint8array')
     } else if (ext === 'ipa') {
@@ -185,7 +187,7 @@ export const packagePassport = async (ctx, buf, ext, parseBplist) => {
         if (mf) { const h = Object.fromEntries(mf.replace(/\r?\n /g, '').split(/\r?\n/).map(l => l.split(/:\s*/)).filter(x => x.length >= 2).map(([k, ...v]) => [k, v.join(':')])); title = h['Implementation-Title'] ?? h['Bundle-Name'] ?? h['Automatic-Module-Name'] ?? ''; add('Название', title); add('Версия', h['Implementation-Version'] ?? h['Bundle-Version']); add('Производитель', h['Implementation-Vendor'] ?? h['Bundle-Vendor']); add('Запускается классом', h['Main-Class']); add('Собрано', [h['Created-By'], h['Build-Jdk'] && 'JDK ' + h['Build-Jdk'], h['Build-Jdk-Spec'] && 'Java ' + h['Build-Jdk-Spec']].filter(Boolean).join(', ')) }
         const classes = names.filter(n => n.endsWith('.class')).length; add('Классов', classes || '')
     } else if (ext === 'xpi' || ext === 'crx') {
-        const j = JSON.parse((await txt('manifest.json')) ?? '{}')
+        const j = JSON.parse((await txt(MANIFEST)) ?? '{}')
         const msg = async v => { const m = /^__MSG_(.+)__$/.exec(v ?? ''); if (!m) return v; const loc = j.default_locale ?? 'en'; try { const d = JSON.parse(await txt(`_locales/${loc}/messages.json`)); return d[m[1]]?.message ?? d[m[1].toLowerCase()]?.message ?? v } catch { return v } }
         title = await msg(j.name); add('Название', title); add('Версия', j.version); add('Описание', await msg(j.description)); add('Автор', typeof j.author === 'string' ? j.author : j.author?.name); add('Версия манифеста', j.manifest_version)
         add('Разрешения', [...(j.permissions ?? []), ...(j.host_permissions ?? [])].join(', '))

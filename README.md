@@ -57,10 +57,10 @@ PDF is still opened by Obsidian's own viewer. KeePass databases are shown as inf
 ### From the Obsidian catalog
 Settings → Community plugins → Browse → search for **Universal Reader** (or just a format, e.g. *epub*, *docx*, *djvu*) → Install → Enable.
 
-The catalog version already includes the popular formats: Word, Excel, PowerPoint, TIFF, DjVu, RAR, SQLite and 3D models.
+The catalog version already includes the popular formats: Word, Excel, PowerPoint, TIFF, HEIC (iPhone photos), DjVu, RAR, SQLite and 3D models.
 
 ### Libs pack, for rare heavy formats
-Some formats need large libraries (several to tens of megabytes each), so they are not part of the catalog version. These include 7z, HEIC, RTF, sheet music, CAD (STEP/IGES/Rhino/IFC), HDF5 scientific data and Flash. When you open such a file, the reader shows a **"Library pack needed"** panel with a download button.
+Some formats need large libraries (several to tens of megabytes each), so they are not part of the catalog version. These include 7z, RTF, sheet music, CAD (STEP/IGES/Rhino/IFC), HDF5 scientific data and Flash. When you open such a file, the reader shows a **"Library pack needed"** panel with a download button.
 
 1. Download `universal-reader-libs-x.y.z.zip` from [Releases](https://github.com/ProgrammedByGod/universal-reader/releases/latest).
 2. Unpack it into `<your vault>/.obsidian/plugins/universal-reader/`. You should end up with a `libs` folder next to `main.js`.
