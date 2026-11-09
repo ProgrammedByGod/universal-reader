@@ -1,0 +1,17 @@
+Для этого формата нужен более новый пакет библиотек (не найден файл {0}). Скачайте свежий пакет и замените им папку libs в папке плагина.	This format needs a newer library pack (file {0} not found). Download the current pack and replace the libs folder in the plugin folder with it.
+Для этого формата нужен пакет библиотек (папка libs), а он не установлен. Скачайте его с GitHub и положите папку libs в папку плагина.	This format needs the library pack (the libs folder), which is not installed. Download it from GitHub and put the libs folder into the plugin folder.
+Пакет библиотек	Library pack
+Проверяю…	Checking…
+Установлен (версия {0}). Открываются все форматы.	Installed (version {0}). All formats open.
+Установлен устаревший пакет. Скачайте новый и замените им папку libs в папке плагина.	An outdated pack is installed. Download the new one and replace the libs folder in the plugin folder with it.
+Не установлен. Без него не открываются DjVu, RAR, 7z, HEIC, PSD, Excel, PowerPoint, 3D-модели, ноты и ещё часть форматов. Скачайте пакет с GitHub и положите папку libs в папку плагина.	Not installed. Without it DjVu, RAR, 7z, HEIC, PSD, Excel, PowerPoint, 3D models, sheet music and some other formats do not open. Download the pack from GitHub and put the libs folder into the plugin folder.
+Скачать с GitHub	Download from GitHub
+Нужен новый пакет библиотек	A newer library pack is needed
+Нужен пакет библиотек	The library pack is needed
+Для этого формата нужна библиотека, которой нет в установленном пакете. Скачайте свежий пакет и замените им папку libs.	This format needs a library that is not in the installed pack. Download the current pack and replace the libs folder with it.
+Этот формат открывается с помощью дополнительной библиотеки. Библиотеки большие, поэтому их нет в версии из каталога Обсидиана — их нужно скачать отдельно.	This format is opened with an additional library. The libraries are large, so they are not included in the version from the Obsidian community directory — they need to be downloaded separately.
+Скачайте архив universal-reader-libs с GitHub (кнопка ниже).	Download the universal-reader-libs archive from GitHub (button below).
+Распакуйте его в папку плагина: {0}/ — там появится папка libs.	Unpack it into the plugin folder: {0}/ — a libs folder will appear there.
+Откройте файл заново (перезапускать Обсидиан не нужно).	Open the file again (no need to restart Obsidian).
+Не установлен. Популярные форматы (Word, Excel, PowerPoint, TIFF, DjVu, RAR, SQLite, 3D-модели) встроены и открываются и так. Пакет нужен для редких тяжёлых: 7z, HEIC, RTF, ноты, CAD, научные данные, Flash и другие. Скачайте его с GitHub и положите папку libs в папку плагина.	Not installed. Popular formats (Word, Excel, PowerPoint, TIFF, DjVu, RAR, SQLite, 3D models) are built in and open without it. The pack is needed for rare heavy ones: 7z, HEIC, RTF, sheet music, CAD, scientific data, Flash and others. Download it from GitHub and put the libs folder into the plugin folder.
+	This format needs an additional library. It is large, so it is not included in the version from the Obsidian catalog — the pack of such libraries has to be downloaded separately.

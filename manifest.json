@@ -1,0 +1,10 @@
+{
+  "id": "universal-reader",
+  "name": "Universal Reader",
+  "version": "0.8.0",
+  "minAppVersion": "1.5.0",
+  "description": "Read books, comics, documents, spreadsheets, databases, presentations, web pages, maps, diagrams, 3D models, fonts, archives and code in one view (alpha, read-only). English and Russian interface.",
+  "author": "Миша",
+  "authorUrl": "https://github.com/ProgrammedByGod",
+  "isDesktopOnly": false
+}
